@@ -1,4 +1,4 @@
-from matplotlib.pyplot import plt
+import matplotlib.pyplot as plt
 
 def copy_value(target_list, target_index, source_list, source_index):
     """Copy"""
@@ -43,22 +43,34 @@ def merge_sort(values):
         right_index += 1
         target_index += 1
 
-def plot_values(values, title):
-    """Plot the values of a list."""
-    x_values = range(len(values))
-    plt.plot(x_values, values)
-    plt.title(title)
+def plot(values, title):
+
+    my_list = values
+    original_list = my_list.copy()
+
+    merge_sort(my_list)
+
+    x = range(len(my_list))
+
+    fig, axes = plt.subplots(2, 1, figsize=(10, 7), sharex=True)
+
+    axes[0].bar(x, original_list)
+    axes[0].set_title(title)
+    axes[0].set_ylabel("Value")
+    axes[0].grid(axis="y", linestyle="--", alpha=0.5)
+
+    axes[1].bar(x, my_list)
+    axes[1].set_title(title)
+    axes[1].set_xlabel("Index")
+    axes[1].set_ylabel("Value")
+    axes[1].set_xticks(x)
+    axes[1].grid(axis="y", linestyle="--", alpha=0.5)
+
+    fig.suptitle("Merge Sort Visualization")
+    plt.tight_layout()
     plt.show()
 
 
-def main():
-    """Run a small example"""
-    my_list = [54, 26, 93, 17, 77, 31, 44, 55, 20]
-
-    plot_values(my_list, "Before sorting")
-    merge_sort(my_list)
-    plot_values(my_list, "After sorting")
-
-
 if __name__ == "__main__":
-    main()
+    my_list = [54, 26, 93, 17, 77, 31, 44, 55, 20]
+    plot(my_list, "Merge Sort")
