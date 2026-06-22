@@ -41,11 +41,29 @@ def mergeSort(list_to_sort_by_merge):
 
 import matplotlib.pyplot as plt
 
-my_list = [54, 26, 93, 17, 77, 31, 44, 55, 20]
-x = range(len(my_list))
-plt.plot(x, my_list)
-plt.show()
-mergeSort(my_list)
-x = range(len(my_list))
-plt.plot(x, my_list)
-plt.show()
+def plot(values, title):
+
+    my_list = values
+    original_list = my_list.copy()
+
+    mergeSort(my_list)
+
+    x = range(len(my_list))
+
+    fig, axes = plt.subplots(2, 1, figsize=(10, 7), sharex=True)
+
+    axes[0].bar(x, original_list)
+    axes[0].set_title(title)
+    axes[0].set_ylabel("Value")
+    axes[0].grid(axis="y", linestyle="--", alpha=0.5)
+
+    axes[1].bar(x, my_list)
+    axes[1].set_title(title)
+    axes[1].set_xlabel("Index")
+    axes[1].set_ylabel("Value")
+    axes[1].set_xticks(x)
+    axes[1].grid(axis="y", linestyle="--", alpha=0.5)
+
+    fig.suptitle("Merge Sort Visualization")
+    plt.tight_layout()
+    plt.show()
